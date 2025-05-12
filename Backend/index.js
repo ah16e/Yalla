@@ -11,6 +11,7 @@ import paymentRoutes from './src/Routes/paymentRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import feedbackRoutes from './src/Routes/feedbackRoutes.js';
+import serverless from 'serverless-http';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -39,10 +40,12 @@ app.use((error,req, res, next)=>{
     res.status(error.statusCode || 500).json({status: error.statusText || httpsStatusText.ERROR, message: error.message , code: error.statusCode || 500 , data:null})
 })
 
-
-
 const PORT = process.env.PORT || 3000;
 
-app.listen(process.env.PORT || 3000 , () => {
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-});
+  });
+}
+
+export const handler = serverless(app);
