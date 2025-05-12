@@ -31,7 +31,7 @@ export default function SignupPage() {
     try {
       console.log("Form data:", data); // Log the form data
       
-      const res = await axios.post("http://localhost:3000/api/v1/users/register", data);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/register`, data);
       const { token, user } = res.data.data;
       login({ token, ...user }); // Save user in context + localStorage
       toast.success("Registration successful!");

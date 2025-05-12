@@ -24,7 +24,7 @@ export default function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/v1/courses", {
+    axios.get(`${import.meta.env.VITE_API_URL}/api/v1/courses`, {
       headers: { Authorization: `Bearer ${user?.token}` }
     }).then(() => {
       

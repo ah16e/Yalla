@@ -16,7 +16,7 @@ const TeacherProfile = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/v1/courses/${id}`).then((res) => {
+    axios.get(`${import.meta.env.VITE_API_URL}/api/v1/courses/${id}`).then((res) => {
       setTeacher(res.data.data.course);
     });
   }, [id]);
@@ -24,7 +24,7 @@ const TeacherProfile = () => {
   const handleSendFeedback = async () => {
     if (!feedbackText) return;
     await axios.post(
-      "http://localhost:3000/api/v1/feedback",
+      `${import.meta.env.VITE_API_URL}/api/v1/feedback`,
       {
         teacher: teacher._id,
         comment: feedbackText,
@@ -47,7 +47,7 @@ const TeacherProfile = () => {
         {/* Teacher Card Header */}
         <div className="bg-white rounded-xl shadow flex flex-col md:flex-row items-center gap-6 p-6 mb-8">
           <img
-            src={`http://localhost:3000/${teacher.image}`}
+            src={`${import.meta.env.VITE_API_URL}/${teacher.image}`}
             alt={teacher.name}
             className="w-28 h-28 rounded-xl object-cover border-2 border-blue-200 shadow-sm flex-shrink-0"
           />
@@ -104,7 +104,7 @@ const TeacherProfile = () => {
       <div className="flex flex-col gap-6">
         <div className="bg-white rounded-xl shadow p-4 flex flex-col items-center">
           <video
-            src={`http://localhost:3000/${teacher.video}`}
+            src={`${import.meta.env.VITE_API_URL}/${teacher.video}`}
             controls
             className="w-full rounded mb-4 max-h-56 object-cover"
           />

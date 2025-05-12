@@ -42,7 +42,7 @@ export default function AdminDashboard() {
     const fetchBookings = async () => {
       if (!user || user.role !== "admin") return;
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/bookings", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/bookings`, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         const bookingsArr = extractBookings(res.data);
@@ -74,7 +74,7 @@ export default function AdminDashboard() {
     setEditCourseLoading(true);
     setEditCourseError("");
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/courses", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/courses`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       setCourses(res.data.data || res.data || []);
@@ -128,14 +128,14 @@ export default function AdminDashboard() {
         if (input.description) formData.append("description", input.description);
         if (input.price) formData.append("price", input.price);
         if (typeof input.active === "boolean") formData.append("active", input.active);
-        await axios.patch(`http://localhost:3000/api/v1/courses/${id}`, formData, {
+        await axios.patch(`${import.meta.env.VITE_API_URL}/api/v1/courses/${id}`, formData, {
           headers: {
             Authorization: `Bearer ${user.token}`,
             "Content-Type": "multipart/form-data",
           }
         });
       } else {
-        await axios.patch(`http://localhost:3000/api/v1/courses/${id}`,
+        await axios.patch(`${import.meta.env.VITE_API_URL}/api/v1/courses/${id}`,
           {
             name: input.name,
             title: input.title,
@@ -181,7 +181,7 @@ export default function AdminDashboard() {
       formData.append("schedules[0][date]", courseForm.scheduleDate);
       formData.append("schedules[0][isBooked]", courseForm.scheduleIsBooked);
 
-      await axios.post("http://localhost:3000/api/v1/courses", formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/courses`, formData, {
         headers: {
           Authorization: `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
@@ -208,7 +208,7 @@ export default function AdminDashboard() {
   const handleDeleteCourse = async (id) => {
     if (!window.confirm("Are you sure you want to delete this course?")) return;
     try {
-      await axios.delete(`http://localhost:3000/api/v1/courses/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/v1/courses/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       toast.success("Course deleted successfully!");
@@ -221,7 +221,7 @@ export default function AdminDashboard() {
   const handleToggleActive = async (id) => {
     try {
       const newActive = !editCourseInputs[id].active;
-      await axios.patch(`http://localhost:3000/api/v1/courses/${id}`, { active: newActive }, {
+      await axios.patch(`${import.meta.env.VITE_API_URL}/api/v1/courses/${id}`, { active: newActive }, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       toast.success(`Course is now ${newActive ? 'active' : 'inactive'}`);
@@ -234,13 +234,13 @@ export default function AdminDashboard() {
   const handleConfirmBooking = async (bookingId) => {
     try {
       await axios.put(
-        `http://localhost:3000/api/v1/bookings/${bookingId}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/bookings/${bookingId}`,
         {},
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
       toast.success("Booking confirmed successfully!");
       // Refresh bookings
-      const res = await axios.get("http://localhost:3000/api/v1/bookings", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/bookings`, {
         headers: { Authorization: `Bearer ${user.token}` }
       });
       const bookingsArr = extractBookings(res.data);
@@ -253,7 +253,7 @@ export default function AdminDashboard() {
   const handleCancelBooking = async (bookingId) => {
     try {
       await axios.delete(
-        `http://localhost:3000/api/v1/bookings/${bookingId}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/bookings/${bookingId}`,
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
       setBookings((prev) =>

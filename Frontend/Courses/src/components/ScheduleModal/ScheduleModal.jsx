@@ -21,7 +21,7 @@ export default function ScheduleModal({ isOpen, closeModal, teacherId }) {
   useEffect(() => {
     if (teacherId) {
       axios
-        .get(`http://localhost:3000/api/v1/lessons/booked/${teacherId}`)
+        .get(`${import.meta.env.VITE_API_URL}/api/v1/lessons/booked/${teacherId}`)
         .then((res) => {
           setBookedSlots(res.data); // Format: [{ date: "2025-05-03", time: "10:00 AM" }]
         });
@@ -49,7 +49,7 @@ export default function ScheduleModal({ isOpen, closeModal, teacherId }) {
     console.log('Sending checkout request with data:', { lessons, userId: user.id });
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/payments/create-checkout-session",
+        `${import.meta.env.VITE_API_URL}/api/v1/payments/create-checkout-session`,
         {
           lessons,
           userId: user.id

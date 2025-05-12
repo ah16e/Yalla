@@ -11,7 +11,7 @@ export const TeacherProvider = ({ children }) => {
 
     const getTeacher = async () => {
         try {
-            const res = await axios.get("http://localhost:3000/api/v1/courses");
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/courses`);
             console.log("API response:", res.data); // مفيد للتأكد
             setTeacher(res.data); // ✅ هنا التعديل
             setLoading(false);

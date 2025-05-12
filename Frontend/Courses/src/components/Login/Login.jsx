@@ -29,7 +29,7 @@ export default function LoginPage() {
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post("http://localhost:3000/api/v1/users/login", data);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/login`, data);
       const { token, user } = res.data.data;
       login({ token, ...user });
       toast.success("Login successful!");

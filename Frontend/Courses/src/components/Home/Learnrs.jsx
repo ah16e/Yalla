@@ -14,7 +14,7 @@ export default function Learnrs() {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/testimonials");
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/testimonials`);
         setTestimonials(res.data.reverse());
       } catch (err) {
         console.error("Error fetching testimonials:", err);
@@ -36,7 +36,7 @@ export default function Learnrs() {
         message: feedback.trim(),
         highlighted: false,
       };
-      const res = await axios.post("http://localhost:3000/api/v1/testimonials", newFeedback);
+      const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/testimonials`, newFeedback);
       setTestimonials([res.data, ...testimonials]);
       setFeedback("");
       setName("");

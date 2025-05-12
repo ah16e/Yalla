@@ -14,7 +14,7 @@ export default function MyProfile() {
     const fetchBookings = async () => {
       if (!user) return;
       try {
-        const res = await axios.get("http://localhost:3000/api/v1/bookings/my", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/bookings/my`, {
           headers: { Authorization: `Bearer ${user.token}` }
         });
         const newBookings = res.data.data.bookings;
@@ -43,7 +43,7 @@ export default function MyProfile() {
       const bookingData = JSON.parse(localStorage.getItem("pendingBooking"));
       if (!bookingData) return;
 
-      axios.post("http://localhost:3000/api/v1/bookings", {
+      axios.post(`${import.meta.env.VITE_API_URL}/api/v1/bookings`, {
         course: bookingData.courseId,
         sessionDate: bookingData.sessionDate,
         paymentMethod: "card"
@@ -56,7 +56,7 @@ export default function MyProfile() {
         const fetchBookings = async () => {
           if (!user) return;
           try {
-            const res = await axios.get("http://localhost:3000/api/v1/bookings/my", {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/v1/bookings/my`, {
               headers: { Authorization: `Bearer ${user.token}` }
             });
             setBookings(res.data.data.bookings);
@@ -153,7 +153,7 @@ export default function MyProfile() {
                         onClick={async () => {
                           try {
                             await axios.delete(
-                              `http://localhost:3000/api/v1/bookings/${booking._id}`,
+                              `${import.meta.env.VITE_API_URL}/api/v1/bookings/${booking._id}`,
                               { headers: { Authorization: `Bearer ${user.token}` } }
                             );
                             setBookings((prev) => prev.filter((b) => b._id !== booking._id));

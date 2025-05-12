@@ -10,7 +10,7 @@ export default function ForgotPassword() {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post("http://localhost:3000/api/v1/users/forgot-password", { email });
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/users/forgot-password`, { email });
       toast.success("Password reset link sent! Check your email.");
     } catch (err) {
       toast.error(err.response?.data?.message || "Error sending reset link");
