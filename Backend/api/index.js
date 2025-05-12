@@ -1,16 +1,16 @@
 import express  from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import { router as coursesRouter } from './src/Routes/coursesRoutes.js';
-import userRoutes from './src/Routes/userRoutes.js';
-import httpsStatusText from './src/utils/httpsStatusText.js';
-import bookingRoutes from './src/Routes/bookingRoutes.js';
+import { router as coursesRouter } from '../src/Routes/coursesRoutes.js';
+import userRoutes from '../src/Routes/userRoutes.js';
+import httpsStatusText from '../src/utils/httpsStatusText.js';
+import bookingRoutes from '../src/Routes/bookingRoutes.js';
 import cors from 'cors';
-import testimonialRoutes from './src/Routes/testimonialRoutes.js';
-import paymentRoutes from './src/Routes/paymentRoutes.js';
+import testimonialRoutes from '../src/Routes/testimonialRoutes.js';
+import paymentRoutes from '../src/Routes/paymentRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import feedbackRoutes from './src/Routes/feedbackRoutes.js';
+import feedbackRoutes from '../src/Routes/feedbackRoutes.js';
 import serverless from 'serverless-http';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -48,4 +48,5 @@ if (!process.env.VERCEL) {
   });
 }
 
-export const handler = serverless(app);
+const handler = serverless(app);
+export default handler;
